@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Open data from Italian universities.">
+    <meta name="author" content="mikexine@gmail.com">
+    <meta property="fb:app_id" content="1733051963609910" />
+
+    <title>UniOpen</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="/">
+                            UniOpen - home
+                        </a>
+                </li>
+                <li>
+                    <a href="/docs.html">Docs</a>
+                </li>
+                <li>
+                    <a href="/contacts.html">Contact</a>
+                </li>
+                <li>
+                    <a href="http://uniorganization.org/" target="_blank">Uni Organization</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="row">
+
+
+
+
+
+                            <h1>UniOpen Api</h1>
+                            <p>Description of available methods.</p>
+                            <p>For all API calls, you should set the
+                                <code>content-type</code> in the call's header to
+                                <code>application/json</code>
+                            </p>
+                            <p>No authentication required. Read-only access.</p>
+                            <p>Available methods:</p>
+                            <ul>
+                                <li>
+                                    <p><a href="#api">/api:</a> available universities</p>
+                                </li>
+                                <li>
+                                    <p><a href="#uni_ID">/api/uni_ID:</a> available data for each University</p>
+                                </li>
+                                <li>
+                                    <p><a href="#uni_ID_mensa">/api/uni_ID/mensa:</a> canteen data for a selected University.</p>
+                                </li>
+                                <li>
+                                    <p><a href="#uni_ID_biblioteca">/api/uni_ID/biblioteca: </a> library data for a selected University.</p>
+                                </li>
+                                <li>
+                                    <p><a href="#uni_ID_aulastudio">/api/uni_ID/aulastudio: </a> study rooms data for a selected University</p>
+                                </li>
+                                <li>
+                                    <p><a href="#uni_ID_single_data">/api/uni_ID/which_data/data_ID: </a> data about a single study room, library or canteen in a selected University.</p>
+                                </li>
+                            </ul>
+                            <p></p>
+
+                            <br />
+                            <hr />
+
+                            <h2 id="api">/api</h2>
+                            <p>Endpoint: <code>/api</code> </p>
+                            <p>Full url: <code>http://uniopen.org/api</code>
+                            </p>
+                            <p>It will return data about the currently supported universities and the data available for each University.</p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Header Parameter</th>
+                                        <th>Set to</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>content-type</code>
+                                        </td>
+                                        <td><code>application/json</code>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>Example response is the following: </p>
+                            <pre>
+{
+    "unipd": [
+    "dirittostudio",
+    "udupadova",
+    "biblioteca",
+    "mensa",
+    "aulastudio"
+    ],
+    "univr": [
+    "biblioteca",
+    "mensa",
+    "aulastudio"
+    ]
+}
+</pre>
+                            <br />
+                            <hr />
+                            <h2 id="uni_ID">/api/uni_ID</h2>
+                            <p>Endpoint: <code>/api/uni_ID</code> </p>
+                            <p>Full url: <code>http://uniopen.org/api/uni_ID</code>
+                            </p>
+                            <p>This call will return the list of available data for a certain University. Remember: "uni_ID" must be the ID of an available University. Check available universities with the <a href="#api">/api</a> call. An example url is: <code>/api/univr</code>
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Header Parameter</th>
+                                        <th>Set to</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>content-type</code>
+                                        </td>
+                                        <td><code>application/json</code>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>Example response is the following: </p>
+                            <pre>
+{
+  "data": [
+    "biblioteca",
+    "mensa",
+    "aulastudio"
+  ]
+}
+</pre>
+                            <br />
+                            <hr />
+                            <h2 id="uni_ID_mensa">/api/uni_ID/mensa</h2>
+                            <p>Endpoint: <code>/api/uni_ID/mensa</code> </p>
+                            <p>Full url: <code>http://uniopen.org/api/uni_ID/mensa</code>
+                            </p>
+                            <p>This api call will return data about all the canteens of the selected University. Remember: "uni_ID" must be the ID of an available University. Check available universities with the <a href="#api">/api</a> call. An example url is: <code>/api/unipd/mensa</code>
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Header Parameter</th>
+                                        <th>Set to</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>content-type</code>
+                                        </td>
+                                        <td><code>application/json</code>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>Example response is the following: </p>
+                            <pre>
+{
+  "acli": {
+    "calendario": {
+      "cena": 1,
+      "pranzo": 1
+    },
+    "coord": {
+      "lat": 45.405255,
+      "lon": 11.871526
+    },
+    "indirizzo": "Via Bonporti, 20",
+    "menu": {
+      "contorno": [
+        "Crocchette* di Patate",
+        "Cavolfiori* all'Olio Extravergine",
+        "Insalata Mista Fresca"
+      ],
+      "dessert": [
+        "Mele, Arance e Banane",
+        "Gelato, Yogurt e Budino",
+        "Caffè Lavazza"
+      ],
+      "primo": [
+        "Cellentani con Pesto e Peperoni ",
+        "Caserecce al Ragù di Tacchino ",
+        "Caserecce e Riso Bollito al Pomodoro e all'Olio Extravergine ",
+        "Zuppa di Cipolla "
+      ],
+      "secondo": [
+        "Bistecca di Manzo alla Griglia",
+        "Arista di Maiale ai Funghi",
+        "Filetto di Tilapia* in Guazzetto"
+      ]
+    },
+    "nome": "Acli - Pio X",
+    "orari": "11:45 - 14:30, 18:45 - 21:00",
+    "telefono": "049 8762255"
+  },
+  "agripolis": { .. },
+  ".." : {..}
+}
+</pre>
+
+                            <br />
+                            <hr />
+                            <h2 id="uni_ID_biblioteca">/api/uni_ID/biblioteca</h2>
+                            <p>Endpoint: <code>/api/uni_ID/biblioteca</code> </p>
+                            <p>Full url: <code>http://uniopen.org/api/uni_ID/biblioteca</code>
+                            </p>
+                            <p>This api call will return data about all the libraries of the selected University. Remember: "uni_ID" must be the ID of an available University. Check available universities with the <a href="#api">/api</a> call. An example url is: <code>/api/unipd/biblioteca</code>
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Header Parameter</th>
+                                        <th>Set to</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>content-type</code>
+                                        </td>
+                                        <td><code>application/json</code>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>Example response is the following: </p>
+                            <pre>
+{
+  "agribiblio": {
+    "coord": {
+      "lat": 45.353451,
+      "lon": 11.951161
+    },
+    "indirizzo": "Viale dell'Università, 16 - Legnaro",
+    "nome": "Biblioteca di Agripolis - Pietro Arduino",
+    "orari": {
+      "0": "08:20 - 18:00",
+      "1": "08:20 - 18:00",
+      "2": "08:20 - 18:00",
+      "3": "08:20 - 18:00",
+      "4": "08:20 - 18:00",
+      "5": "",
+      "6": ""
+    },
+    "orario": "Lunedì - Venerdì: 08:20 - 18:00"
+  },
+  "bibliochimica": {..},
+  ".." : {..}
+}
+</pre>
+
+                            <br />
+                            <hr />
+                            <h2 id="uni_ID_aulastudio">/api/uni_ID/aulastudio</h2>
+                            <p>Endpoint: <code>/api/uni_ID/aulastudio</code> </p>
+                            <p>Full url: <code>http://uniopen.org/api/uni_ID/aulastudio</code>
+                            </p>
+                            <p>This api call will return data about all the study rooms of the selected University. Remember: "uni_ID" must be the ID of an available University. Check available universities with the <a href="#api">/api</a> call. An example url is: <code>/api/unipd/aulastudio</code>
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Header Parameter</th>
+                                        <th>Set to</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>content-type</code>
+                                        </td>
+                                        <td><code>application/json</code>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>Example response is the following: </p>
+                            <pre>
+{
+  "galilei": {
+    "coord": {
+      "lat": 45.403446,
+      "lon": 11.87996
+    },
+    "indirizzo": "Via Galilei, 42",
+    "nome": "Galilei",
+    "orari": {
+      "0": "08:30 - 20:00",
+      "1": "08:30 - 20:00",
+      "2": "08:30 - 20:00",
+      "3": "08:30 - 20:00",
+      "4": "08:30 - 20:00",
+      "5": "",
+      "6": ""
+    },
+    "orario": "Lunedì - Venerdì: 08:30 - 20:00",
+    "posti": "280",
+    "tel": "049 8273909"
+  },
+  "jappelli": {..},
+  ".." : {..}
+</pre>
+
+                            <br />
+                            <hr />
+                            <h2 id="uni_ID_single_data">/api/uni_ID/which_data/data_ID</h2>
+                            <p>Endpoint: <code>/api/uni_ID/which_data/data_ID</code> </p>
+                            <p>Full url: <code>http://uniopen.org/api/uni_ID/which_data/data_ID</code>
+                            </p>
+                            <p>This api call will return data about a single "structure" (library, canteen or study room) in a selected University. Remember: "uni_ID" must be the ID of an available University, "which_data" must be "mensa" or "aulastudio" or "biblioteca" and "data_ID" must be the ID of a selected structure (for example: "piovego", "jappelli"..). An example url is: <code>/api/unipd/mensa/piovego</code>
+                            </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Header Parameter</th>
+                                        <th>Set to</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>content-type</code>
+                                        </td>
+                                        <td><code>application/json</code>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>Example response (for the above example url) is the following: </p>
+                            <pre>
+{
+  "calendario": {
+    "cena": 0,
+    "pranzo": 1
+  },
+  "coord": {
+    "lat": 45.4109516,
+    "lon": 11.8896592
+  },
+  "indirizzo": "Viale Giuseppe Colombo, 1",
+  "menu": {
+    "contorno": [
+      "Patate prezzemolate",
+      "Buffet di verdure fresche",
+      "Piselli al tegame"
+    ],
+    "dessert": [
+      "Frutta assortita",
+      "Caffè",
+      "Sorbetto"
+    ],
+    "primo": [
+      "Pasta al pomodoro o ragù",
+      "Spadellata ",
+      "Riso all'inglese ",
+      "Crema di cavolfiori "
+    ],
+    "secondo": [
+      "Filetto di scorfano al limone *",
+      "Braciola di maiale alla griglia",
+      "Peperoni alla piemontese"
+    ]
+  },
+  "nome": "Piovego",
+  "orari": "11:30 - 14:30",
+  "telefono": "049 807 1530"
+}
+</pre>
+                            <hr />
+                            <br />
+
+                        </div>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> <a href="/" class="btn btn-default">Home</a>
+                        <div class="pull-right">
+                            <a href="http://uniorganization.org/" target="_blank"> <img src="/static/img/uniorganization-logo-full.png" width="140"> </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="/static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+    <!-- <script type="text/javascript" id="cookiebanner"
+    src="//cookiebanner.eu/js/cookiebanner.min.js"
+    data-position="top"
+    data-accept-on-scroll="true"
+    data-accept-on-click="true"
+    data-fg="black"
+    data-bg="red"
+    data-link="white"
+    data-message="We use cookies to improve your browsing experience.">
+</script> -->
+    <!-- Start of StatCounter Code for Default Guide -->
+    <script type="text/javascript">
+        var sc_project = 10969890;
+        var sc_invisible = 1;
+        var sc_security = "7c5a7d37";
+        var scJsHost = (("https:" == document.location.protocol) ?
+            "https://secure." : "http://www.");
+        document.write("<sc" + "ript type='text/javascript' src='" +
+            scJsHost +
+            "statcounter.com/counter/counter.js'></" + "script>");
+    </script>
+    <noscript>
+        <div class="statcounter">
+            <a title="shopify
+analytics ecommerce tracking" href="http://statcounter.com/shopify/" target="_blank"><img class="statcounter" src="//c.statcounter.com/10969890/0/7c5a7d37/1/" alt="shopify analytics ecommerce
+tracking">
+            </a>
+        </div>
+    </noscript>
+    <!-- End of StatCounter Code for Default Guide -->
+</body>
+
+</html>
